@@ -1,45 +1,54 @@
 server:
-  port: 8085
+  port: 5000
 
 spring:
   application:
-    name: GATEWAY-SERVICE
+    name: GATEWAY_SERVICE
   cloud:
     gateway:
-      routes:
-        - id: Task-User-Service
-          uri: lb://TASK-USER-SERVICE
-          predicates:
-            - Path=/auth/**,/users/**,/api/users/**,/
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      httpClient:
+        connect-timeout: 1000
+        response-timeout: 5s
 
-        - id: TASKSERVICE
-          uri: lb://TASKSERVICE
-          predicates:
-            - Path=/api/tasks/**,/tasks/*
+  config:
+    import: "optional:configserver:http://localhost:8073/"
 
-        - id: SUBMISSIONSERVICE
-          uri: lb://SUBMISSIONSERVICE
-          predicates:
-            - Path=/api/submissions/**,/submissions/*
 
-      globalcors:
-        cors-configurations:
-          "[/**]":
-            allowedOrigins: "*"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - OPTIONS
-            allowedHeaders: "*"
-            allowCredentials: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: "gatewayserver"
+    description: "Projecto Service Gateway Server Application"
+    version: "1.0.0"
 
 eureka:
   instance:
     prefer-ip-address: true
   client:
+    registerWithEureka: true
     fetch-registry: true
-    register-with-eureka: true
     serviceUrl:
-      defaultZone: "http://localhost:8070/eureka/"
+      defaultZone: "http://localhost:8070/eureka"
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000

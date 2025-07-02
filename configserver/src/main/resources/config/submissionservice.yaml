@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: SubmissionService
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: tsSubmissionService
+
+server:
+  port: 8082
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8070/eureka
+
+info:
+  app:
+    name: "submissionserver"
+    description: "Projecto Submission Server Application"
+    version: "1.0.0"
