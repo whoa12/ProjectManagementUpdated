@@ -54,11 +54,11 @@ Each service can be run independently or all together using Docker Compose. You 
 
 | Microservice      | Description                                |
 |-------------------|--------------------------------------------|
-| `User Service`     | Handles login, registration, user roles    |
-| `Task Service`     | Assigns and manages tasks per user/project |
-| `Submission Service` | Manages projects and their status        |
-| `API Gateway`      | Routes requests to correct microservice    |
-| `Eureka Server`    | Service discovery and health tracking      |
+| `Tas-User-Service` | Handles login, registration, user roles    |
+| `TaskService`     | Assigns and manages tasks per user/project |
+| `SubmissionService` | Manages projects and their status        |
+| `Gateway`           | Routes requests to correct microservice    |
+| `tsServiceRegistry` | Service discovery and health tracking      |
 | `Config Server`    | Centralized configuration for all services |
 
 
