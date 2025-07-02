@@ -1,47 +1,111 @@
-Project Management App
-Overview
-The Project Management App is a robust and scalable web application designed to help teams efficiently manage and track their projects using a microservices architecture. Built with Spring Boot, this app implements key features like user management, project tracking, task assignment, and more, providing an intuitive and comprehensive platform for both small and large teams.
-Features
-User Management: Create, update, and delete user accounts. Users can be assigned different roles such as Admin or User.
+#  Project Management App
 
-Project Management: Create, update, and manage projects. Track project progress and milestones.
+A **robust, scalable** microservices-based web application designed to help teams manage users, projects, and tasks with ease.
 
-Task Assignment: Assign tasks to team members, set deadlines, and track completion.
+Built with **Spring Boot**, **JWT Security**, **Eureka**, and **Docker**, this app brings together a modern architecture suited for both small teams and enterprise workflows.
 
-Notifications: Receive alerts for updates on tasks, projects, and deadlines.
+---
 
-Authentication & Authorization: Secure login and role-based access control using Spring Security and JWT (JSON Web Tokens).
+##  Features
 
-API Gateway: A centralized entry point for routing requests to appropriate microservices.
+-  **User Management**  
+  Create, update, delete users and assign roles (`Admin`, `User`) using JWT(Json Web Tokens)
 
-Service Discovery: Automatic detection and registration of microservices using Eureka.
+-  **Project Management**  
+  Create, manage projects; track progress and milestones
 
-Architecture
-This app follows a microservices architecture consisting of several key services:
+-  **Task Assignment**  
+  Assign tasks, set deadlines, track completion
 
-User Service: Handles user registration, login, and profile management.
+-  **Authentication & Authorization**  
+  Spring Security + JWT for secure role-based access
 
-Submission Service: Manages the creation, modification, and status tracking of projects.
+-  **API Gateway**  
+  Central routing entry point to all microservices
 
-Task Service: Responsible for task creation, assignment, and completion tracking.
+-  **Service Discovery**  
+  Eureka-based microservice registration and discovery
 
-API Gateway: Acts as the entry point for all client requests, routing them to the appropriate microservice.
+---
 
-Eureka Service: Provides service discovery and ensures the app’s scalability by managing all microservices.
+## ⚙️ Tech Stack
 
-Tech Stack
-Spring Boot: Framework for building the microservices and the backend.
+| Technology        | Purpose                                  |
+|-------------------|------------------------------------------|
+| **Spring Boot**    | Backend framework for all microservices |
+| **Spring Security**| Role-based authentication               |
+| **JWT**            | Token-based security                    |
+| **Eureka**         | Service registration/discovery          |
+| **MySQL** / **PostgreSQL** / **MongoDB** | Databases        |
+| **Docker**         | Containerization and service isolation  |
+| **Maven**          | Build & dependency management           |
+| **REST APIs**      | Inter-service communication             |
 
-Spring Security: Handles authentication and authorization.
+---
 
-JWT (JSON Web Tokens): Secure authentication mechanism.
+##  Dockerized Deployment
 
-Eureka: Service discovery for microservices.
+Each service can be run independently or all together using Docker Compose. You can scale horizontally with minimal configuration.
 
-Databses: MySQL, PostgreSQL and MongoDB.
 
-Maven: Dependency management and build tool.
+---
 
-RESTful APIs: Communication between microservices and external systems.
+##  Services Overview
 
-Docker: For externalizing microservices.
+| Microservice      | Description                                |
+|-------------------|--------------------------------------------|
+| `User Service`     | Handles login, registration, user roles    |
+| `Task Service`     | Assigns and manages tasks per user/project |
+| `Submission Service` | Manages projects and their status        |
+| `API Gateway`      | Routes requests to correct microservice    |
+| `Eureka Server`    | Service discovery and health tracking      |
+| `Config Server`    | Centralized configuration for all services |
+
+
+---
+
+
+---
+
+##  Resilience, Fault Tolerance & Monitoring
+
+This project includes essential patterns and tools to ensure fault-tolerant microservices communication:
+
+###  Circuit Breaker (Resilience4j)
+- Prevents cascading failures by **breaking circuits** when a downstream service is slow or unavailable.
+- Automatically **recovers** when the downstream system becomes healthy again.
+
+###  Fallbacks
+- Graceful degradation of services by returning **default responses** or cached data if a microservice call fails.
+- Ensures users don't see application crashes even if one microservice is down.
+
+###  Retry & Timeout
+- Automatically **retries failed requests** (like to an unstable service).
+- Configurable **timeouts** prevent indefinite hangs.
+
+###  Health Checks & Monitoring
+- Exposed via **Spring Boot Actuator**
+- Integrated into **Eureka** for smart service registration/deregistration
+- Readiness and Liveness probes help ensure containers are healthy (supports Kubernetes)
+
+###  Centralized Logs (Optional/Planned)
+- Logs from each microservice can be forwarded to:
+  - **ELK Stack (Elasticsearch, Logstash, Kibana)**
+  - or **Prometheus + Grafana** for real-time metrics and dashboards
+
+> Planned integrations for full observability
+
+---
+
+##  Future Enhancements (Planned or In Progress)
+
+- [ ] Integrate **Hystrix Dashboard** or **Spring Cloud Dashboard**
+- [ ] Add **distributed tracing** with **Zipkin** or **Jaeger**
+- [ ] Real-time monitoring with **Prometheus + Grafana**
+- [ ] Add Kafka for event-driven architecture
+- [ ] API Rate Limiting & Throttling
+
+---
+
+
+
